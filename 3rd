@@ -1,0 +1,54 @@
+import pandas as pd
+
+#init data
+data1 = {
+    'Make':['ARCTIC CAT'],
+    'Model':['Select Model'],
+    'Vendor Code':['NACH'],
+    'Vendor Name':['NACHMAN INTERNATIONAL CO. LTD'],
+    
+    'MPN':['AT-05194'],
+    
+    'AD Item Number':['999771'],
+    
+    'Vendor Notes':['"OEM:0487-099 LENGTH(FEET/ IN):6.03" LENGTH ( MM ):1840MM ; **GEARSHIFT CABLES REQUIRED IN POLARIS APPLICATIONS, RATHER THAN STANDARD UNIVERSAL JOINTED HARD LINKAGES FOUND IN OTHER OEM UTVS. ** SHIFT CABLES ARE KNOWN TO STRETCH OUTSIDE OF AVAILABLE FACTORY SHIFT-POINT  ADJUSTMENTS. AS WELL AS HAVING A WEAK POINT AT THE  W EARABLE LINKAGES.; **THESE GEARSHIFT CABLES ARE PRODUCED BY THE O.E.M    SUPPLIER, A CERTIFIED ISO/ TS16949 FACTORY. **MADE OF    BLACK PVC OUTER.   INSULATION ** INNER CORE IS COMPOSED OF SOLID STEEL TO REDUCE CABLE STRETCH AND COMPRESSION. ; "'],
+}
+
+#Lists of models
+
+list_models = [
+    
+'Prowler HDX 500 XT',
+'HDX 500 XT',
+'550 XT',
+'Prowler XT 700',
+'Prowler XT 550',
+'Prowler XT 550i',
+'Prowler HDX 700 XT',
+'Prowler 700 XT'
+]
+
+#Range of Years
+
+years = list(range(2017, 2023))
+
+#Function to generate DFs for each model
+
+def generate_df(model, data, year):
+    data_copy = data.copy() #creating a copy of data1 to avoid modifying the original
+    data_copy['Model'] = model
+    data_copy['Year'] = year
+    return pd.DataFrame(data_copy)
+
+#Generate DFs for all sets of data
+dfs= []
+for year in years:
+    df1 = pd.concat([generate_df(model, data1, year) for model in list_models], ignore_index = True)
+    dfs.append(df1)
+
+#Concatenate or Merge all dataframes
+final_df = pd.concat(dfs, ignore_index = True)
+
+#Display
+final_df
+    
